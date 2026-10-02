@@ -31,3 +31,8 @@ output "dynamodb_table_arn" {
 #  description = "Name of the CloudWatch log group for the Lambda function."
 #  value       = aws_cloudwatch_log_group.lambda.name
 #}
+
+output "api_endpoint" {
+  description = "Base URL of the HTTP API"
+  value       = aws_apigatewayv2_api.catalogue.api_endpoint
+}
