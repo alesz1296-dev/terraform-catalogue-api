@@ -190,3 +190,73 @@ Costs:
 
 - Older logs are not retained
 - Long-term historical debugging is limited
+
+## Decision 006: Package Lambda Code As A Zip
+
+Date: 2026-10-02
+
+Status: Accepted
+
+## Context
+
+AWS Lambda does not run code directly from the local development folder. The function code must be uploaded to AWS as a deployment package.
+
+For the first implementation, the handler is a simple Python file:
+
+```text
+api/src/handler.py
+```
+
+## Decision
+
+Package the Lambda code as a `.zip` file and deploy it through Terraform using `aws_lambda_function`.
+
+The zip package should contain `handler.py` at the root:
+
+```text
+lambda.zip
+  handler.py
+```
+
+The Lambda handler setting is:
+
+```text
+handler.handler
+```
+
+This means:
+
+```text
+file: handler.py
+function: handler
+```
+
+## Reasoning
+
+This keeps the first Lambda deployment simple and focused:
+
+- No external dependencies are required yet.
+- The deployment package is small.
+- Terraform can upload the zip to Lambda.
+- The handler path stays easy to understand.
+
+## Trade-Offs
+
+Benefits:
+
+- Simple first deployment model.
+- Easy to inspect what code is being deployed.
+- Good fit for a single-file handler.
+
+Costs:
+
+- The zip must be recreated when handler code changes.
+- Manual packaging can cause path mistakes.
+- A future CI/CD pipeline should automate packaging.
+
+## Follow-Up
+
+Later, replace manual zip creation with one of these approaches:
+
+- Terraform `archive_file` for simple local packaging.
+- GitHub Actions build artifact for a more production-like deployment pipeline.

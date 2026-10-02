@@ -69,6 +69,20 @@ Learning checkpoints:
 - Explain which resources are permissions
 - Explain why Lambda needs an execution role
 
+Current status:
+
+- DynamoDB table deployed.
+- CloudWatch log group deployed with short retention.
+- Lambda IAM role deployed.
+- Lambda CloudWatch logging permission deployed.
+- Lambda DynamoDB read-only policy deployed.
+- Lambda function deployment started with a zip package.
+- Direct Lambda invocation reaches the function, but currently returns `FunctionError: Unhandled`.
+
+Next troubleshooting step:
+
+- Inspect the Lambda response payload and CloudWatch logs to identify the handler/runtime error before adding API Gateway.
+
 ## Phase 3: Lambda And DynamoDB
 
 Goal: make Lambda return real data from DynamoDB.

@@ -2,18 +2,18 @@
 
 A serverless AWS API for storing and serving Terraform module metadata.
 
-This is Project 2 in the AWS Cloud/DevOps learning roadmap. It builds on the static Terraform Catalogue website by adding a backend API powered by API Gateway, Lambda, and DynamoDB.
+This project extends the Terraform Catalogue static website with a backend API powered by API Gateway, Lambda, and DynamoDB.
 
 ## Goal
 
-Build a small, production-minded serverless API that can return Terraform module information such as name, category, difficulty, AWS services used, and description.
+Build a small, production-minded serverless API that returns structured Terraform module information, including name, category, difficulty, AWS services used, service features, use cases, and description.
 
 The first version will be read-only:
 
 - `GET /modules`
 - `GET /modules/{id}`
 
-Write operations, authentication, custom domains, and CI/CD will be added only after the core serverless architecture is understood.
+Write operations, authentication, custom domains, and CI/CD are planned as later enhancements after the read-only API is stable.
 
 ## Planned Architecture
 
@@ -33,11 +33,11 @@ Client or browser
 
 ## Cost Posture
 
-This project is designed to stay low-cost for learning usage by using serverless, pay-per-use services:
+This project is designed to stay low-cost at portfolio/demo scale by using serverless, pay-per-use services:
 
 - API Gateway HTTP API
 - Lambda
 - DynamoDB on-demand
 - CloudWatch Logs with short retention
 
-Expected learning cost should be close to zero or well under one dollar per month at low traffic.
+Expected cost should be close to zero or well under one dollar per month at low traffic.
