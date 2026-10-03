@@ -3,5 +3,12 @@
 *.tfstate.*
 *.tfvars
 infra/build/
+infra/lambda/
 infra/response.json
+infra/event.json
+infra/seed-item.json
+infra/key.json
 response.json
+event.json
+seed-item.json
+key.json

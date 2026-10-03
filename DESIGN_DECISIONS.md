@@ -6,8 +6,6 @@ This file records architecture choices, trade-offs, and reasoning for the Terraf
 
 Date: 2026-10-01
 
-Status: Proposed
-
 ## Context
 
 The API needs to expose simple HTTP endpoints backed by Lambda.
@@ -44,8 +42,6 @@ Costs:
 ## Decision 002: Use Lambda For Backend Logic
 
 Date: 2026-10-01
-
-Status: Proposed
 
 ## Context
 
@@ -84,8 +80,6 @@ Costs:
 
 Date: 2026-10-01
 
-Status: Proposed
-
 ## Context
 
 The API stores simple module metadata and will receive low, unpredictable learning traffic.
@@ -119,8 +113,6 @@ Costs:
 ## Decision 004: Start With Read-Only Endpoints
 
 Date: 2026-10-01
-
-Status: Proposed
 
 ## Context
 
@@ -164,8 +156,6 @@ Costs:
 
 Date: 2026-10-01
 
-Status: Proposed
-
 ## Context
 
 CloudWatch Logs are useful for debugging but can become a hidden cost if logs are noisy or retained forever.
@@ -194,8 +184,6 @@ Costs:
 ## Decision 006: Package Lambda Code As A Zip
 
 Date: 2026-10-02
-
-Status: Accepted
 
 ## Context
 

@@ -76,12 +76,14 @@ Current status:
 - Lambda IAM role deployed.
 - Lambda CloudWatch logging permission deployed.
 - Lambda DynamoDB read-only policy deployed.
-- Lambda function deployment started with a zip package.
-- Direct Lambda invocation reaches the function, but currently returns `FunctionError: Unhandled`.
-
-Next troubleshooting step:
-
-- Inspect the Lambda response payload and CloudWatch logs to identify the handler/runtime error before adding API Gateway.
+- Lambda function deployed with a zip package.
+- API Gateway HTTP API deployed.
+- API Gateway routes deployed for `GET /modules` and `GET /modules/{id}`.
+- API Gateway Lambda integration deployed.
+- Lambda permission for API Gateway deployed.
+- DynamoDB seed item inserted manually.
+- `GET /modules` returns module data from DynamoDB.
+- `GET /modules/s3-static-site` returns one module from DynamoDB.
 
 ## Phase 3: Lambda And DynamoDB
 
@@ -101,6 +103,12 @@ Deliverables:
 - Working Lambda function
 - Seed data in DynamoDB
 - Successful API tests
+
+Current status:
+
+- Complete for v1 read-only API behavior.
+- `GET /modules` returns `{ "count": 1, "modules": [...] }`.
+- `GET /modules/s3-static-site` returns `{ "module": {...} }`.
 
 Learning checkpoints:
 
@@ -125,6 +133,12 @@ Deliverables:
 - Test commands in README
 - Example successful responses
 - Example error response
+
+Current status:
+
+- `GET /modules` tested successfully through API Gateway.
+- `GET /modules/s3-static-site` tested successfully through API Gateway.
+- Unknown module `404` test remains the final v1 API-contract check.
 
 Learning checkpoints:
 

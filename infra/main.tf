@@ -30,6 +30,17 @@ resource "aws_cloudwatch_log_group" "lambda" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "api_gateway" {
+  name              = "/aws/apigateway/${var.project_name}-${var.environment}"
+  retention_in_days = var.log_retention_days
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+    ManagedBy   = "terraform"
+  }
+}
+
 #iam roles
 resource "aws_iam_role" "lambda" {
   name = "${var.project_name}-${var.environment}-lambda-role"
@@ -135,10 +146,33 @@ resource "aws_apigatewayv2_route" "module_by_id" {
   target = "integrations/${aws_apigatewayv2_integration.lambda.id}"
 }
 
+
 resource "aws_apigatewayv2_stage" "default" {
   api_id      = aws_apigatewayv2_api.catalogue.id
   name        = "$default"
   auto_deploy = true
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway.arn
+
+    format = jsonencode({
+      requestId               = "$context.requestId"
+      ip                      = "$context.identity.sourceIp"
+      requestTime             = "$context.requestTime"
+      httpMethod              = "$context.httpMethod"
+      routeKey                = "$context.routeKey"
+      status                  = "$context.status"
+      protocol                = "$context.protocol"
+      responseLength          = "$context.responseLength"
+      integrationErrorMessage = "$context.integrationErrorMessage"
+    })
+  }
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+    ManagedBy   = "terraform"
+  }
 }
 
 resource "aws_lambda_permission" "api_gateway" {
@@ -149,3 +183,4 @@ resource "aws_lambda_permission" "api_gateway" {
 
   source_arn = "${aws_apigatewayv2_api.catalogue.execution_arn}/*/*"
 }
+
